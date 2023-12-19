@@ -2,15 +2,12 @@
 Routes and views for the flask application.
 """
 
-from asyncio.windows_events import NULL
-from audioop import mul
 import os
 import mdutils
 from collections import Counter
 from ftplib import FTP
 from datetime import datetime
 import flask
-from operator import countOf
 from flask import render_template, Flask, request, url_for
 from flask import jsonify
 app = Flask(__name__)
@@ -18,12 +15,8 @@ app = Flask(__name__)
 from flask_bootstrap import Bootstrap4
 import sqlalchemy
 import requests
-import asyncio
 import aiohttp
-import threading
-import json
 import smtplib
-import concurrent.futures
 import random
 from flask_paginate import Pagination, get_page_args
 class Pokemon:
