@@ -5,7 +5,9 @@ Routes and views for the flask application.
 from asyncio.windows_events import NULL
 from audioop import mul
 import os
+import mdutils
 from collections import Counter
+from ftplib import FTP
 from datetime import datetime
 import flask
 from operator import countOf
@@ -34,7 +36,6 @@ class Pokemon:
         self.defense = defense
         self.abilities = abilities
         self.image = image
-num = 1
 @app.route('/')
 @app.route('/home')
 def home():
@@ -74,6 +75,28 @@ def contact(pokemon):
         title=f"Информация о покемоне {pokemon}",
         message='Your contact page.'
     )
+
+@app.route("/save/<pokemon>", methods=['GET', 'POST'])
+def save_pokemon(pokemon):
+    ftp = FTP('127.0.0.1')
+    ftp.login('user', 'ftp_password')
+    cursor = conn.raw_connection().cursor()
+    cursor.execute(f"SELECT * FROM pokemons WHERE name = '{pokemon}'")
+    pokemon = cursor.fetchone()  
+    md = mdutils.MdUtils(file_name=f'{pokemon[1]}', title=f'{pokemon[1]}')
+    md.write(f'HP: {pokemon[2]}\nАтака: {pokemon[3]}\nЗащита: {pokemon[4]}\nСпособности: {pokemon[5]}')
+    md.create_md_file()
+    folder_name = datetime.now().strftime('%Y-%m-%d')
+    ftp.mkd(folder_name)
+    ftp.cwd(folder_name)
+    file_ftp = open(f'{pokemon[1]}.md', 'rb')
+    ftp.storbinary(f'STOR {pokemon[1]}.md', file_ftp)
+    ftp.close()
+    return render_template(
+        'save.html',
+        pokemon=pokemon[1],
+        )
+
 
 @app.route("/pokemon/random", methods=['GET', 'POST'])
 def randomed():
@@ -252,10 +275,10 @@ def feedback(pokemon):
         title=f"Информация о покемоне {pokemon}",
         message='Your contact page.'
     )
-print((requests.get("https://pokeapi.co/api/v2/pokemon/?limit=500")).json()['results'])
+
 count = requests.get("https://pokeapi.co/api/v2/pokemon/").json()['count']
 pokemons = requests.get(f"https://pokeapi.co/api/v2/pokemon/?limit={count}").json()['results']
-#asyncio.run(get_pokemons(pokemons, count)) 
+
 if __name__ == '__main__':
     app.run(debug=True)
 
