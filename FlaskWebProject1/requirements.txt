@@ -1,4 +1,3 @@
-os
 mdutils
 ftplib
 datetime
