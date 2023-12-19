@@ -11,9 +11,10 @@ from ftplib import FTP
 from datetime import datetime
 import flask
 from operator import countOf
-from flask import render_template, request, url_for
+from flask import render_template, Flask, request, url_for
 from flask import jsonify
-from FlaskWebProject1 import app
+app = Flask(__name__)
+
 from flask_bootstrap import Bootstrap4
 import sqlalchemy
 import requests
