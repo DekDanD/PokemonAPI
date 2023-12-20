@@ -1,7 +1,9 @@
 mdutils
 datetime
+aiohttp
 flask
 flask_bootstrap
 sqlalchemy
 requests
+psycopg2-binary
 flask_paginate
