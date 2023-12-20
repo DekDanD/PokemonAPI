@@ -11,7 +11,6 @@ import flask
 from flask import render_template, Flask, request, url_for
 from flask import jsonify
 app = Flask(__name__)
-
 import sqlalchemy
 import requests
 import smtplib
@@ -29,6 +28,7 @@ class Pokemon:
         self.defense = defense
         self.abilities = abilities
         self.image = image
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -272,5 +272,5 @@ count = requests.get("https://pokeapi.co/api/v2/pokemon/").json()['count']
 pokemons = requests.get(f"https://pokeapi.co/api/v2/pokemon/?limit={count}").json()['results']
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
 
