@@ -12,12 +12,11 @@ from flask import render_template, Flask, request, url_for
 from flask import jsonify
 app = Flask(__name__)
 
-from flask_bootstrap import Bootstrap4
 import sqlalchemy
 import requests
-import aiohttp
 import smtplib
 import random
+import aiohttp
 from flask_paginate import Pagination, get_page_args
 class Pokemon:
     def __init__(self, id, name, url, hp, attack, defense, abilities, image):
@@ -214,8 +213,7 @@ def fast_fight(selected, randomed):
         winner=winner,
         rounds=rounds
         )
-from joblib import Parallel, delayed
-import multiprocessing
+
 import time
 p = []
 headers = {

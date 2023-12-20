@@ -1,10 +1,9 @@
 mdutils
-ftplib
 datetime
+aiohttp
 flask
 flask_bootstrap
 sqlalchemy
 requests
-smtplib
-random
+psycopg2-binary
 flask_paginate
