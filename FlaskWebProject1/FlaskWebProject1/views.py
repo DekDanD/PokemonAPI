@@ -3,12 +3,13 @@ Routes and views for the flask application.
 """
 
 import os
+import threading
 import mdutils
 from collections import Counter
 from ftplib import FTP
 from datetime import datetime
 import flask
-from flask import render_template, Flask, request, url_for
+from flask import render_template, Flask, request, url_for, current_app
 from flask import jsonify
 app = Flask(__name__)
 import sqlalchemy
@@ -28,6 +29,10 @@ class Pokemon:
         self.defense = defense
         self.abilities = abilities
         self.image = image
+
+conn = sqlalchemy.create_engine("postgresql://postgres:postgres@localhost/pokemons")
+
+
 
 @app.route('/')
 @app.route('/home')
@@ -271,6 +276,7 @@ def feedback(pokemon):
 count = requests.get("https://pokeapi.co/api/v2/pokemon/").json()['count']
 pokemons = requests.get(f"https://pokeapi.co/api/v2/pokemon/?limit={count}").json()['results']
 
-if __name__ == '__main__':
+
+if __name__ == '__main__':   
     app.run(host='0.0.0.0')
 
