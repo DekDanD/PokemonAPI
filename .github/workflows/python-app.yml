@@ -42,7 +42,7 @@ jobs:
       uses: actions/checkout@v3
     - name: build
       run: |
-        docker build. -t dekdand/pokemonapi-image:latest
+        docker build. dekdand/pokemonapi-image:latest
     - name: publish
       run: |
         docker login -u dekdand -p ${{secrets.DOCKER_HUB_TOKEN}}
