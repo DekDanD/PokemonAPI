@@ -9,6 +9,7 @@ from collections import Counter
 from ftplib import FTP
 from datetime import datetime
 import flask
+import unittest
 from flask import render_template, Flask, request, url_for, current_app
 from flask import jsonify
 app = Flask(__name__)
@@ -18,6 +19,17 @@ import smtplib
 import random
 import aiohttp
 from flask_paginate import Pagination, get_page_args
+
+
+class Test(unittest.TestCase):
+    def setUp(self):
+        app.config['TESTING'] = True
+        self.app = app.test_client()
+
+    def test_home(self):
+        response = self.app.get('/home')
+        self.assertEqual(response.status_code, 200)
+
 class Pokemon:
     def __init__(self, id, name, url, hp, attack, defense, abilities, image):
         __tablename__ = "pokemons"
