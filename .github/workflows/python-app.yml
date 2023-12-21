@@ -30,8 +30,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with unittest
       run: |
-        run: python -m unittest FlaskWebProject1/FlaskWebProject1/test.py
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         python -m pip install --upgrade pip
+        python -m unittest FlaskWebProject1/FlaskWebProject1/test.py
     - name: checkout
       uses: actions/checkout@v3
     - name: build
